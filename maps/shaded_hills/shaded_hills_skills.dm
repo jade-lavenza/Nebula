@@ -130,6 +130,19 @@
 /decl/stack_recipe
 	recipe_skill = null // set based on material
 
+// ANIMA OVERRIDES
+/decl/stack_recipe/anima
+	recipe_skill = /decl/hierarchy/skill/crafting/artifice
+
+/obj/item/runestone
+	work_skill = /decl/hierarchy/skill/crafting/artifice
+
+/decl/material/solid/anima
+	arcana_skill = SKILL_SCIENCE
+
+/decl/runestone_spell_archetype
+	arcana_skill = SKILL_SCIENCE
+
 // Removal of space skills
 /datum/map/shaded_hills/get_available_skill_types()
 	. = ..()

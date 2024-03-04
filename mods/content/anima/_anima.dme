@@ -1,0 +1,14 @@
+#ifndef MODPACK_ANIMA
+#define MODPACK_ANIMA
+// BEGIN_INCLUDE
+#include "_anima.dm"
+#include "anima_materials.dm"
+#include "anima_stack.dm"
+#include "runestones.dm"
+#include "spell_archetypes.dm"
+#include "spell_datum.dm"
+#include "spell_effect.dm"
+#include "spellcasting.dm"
+#include "spellscribing.dm"
+// END_INCLUDE
+#endif

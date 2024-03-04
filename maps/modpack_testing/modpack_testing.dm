@@ -29,6 +29,7 @@
 	#include "../../mods/content/xenobiology/_xenobiology.dme"
 	#include "../../mods/content/pheromones/_pheromones.dme"
 	#include "../../mods/species/drakes/_drakes.dme" // include before _fantasy.dme so overrides work
+	#include "../../mods/content/anima/_anima.dme"   // include before _fantasy.dme so skill overrides work
 	#include "../../mods/content/fantasy/_fantasy.dme"
 	#include "../../mods/pyrelight/_pyrelight.dme" // include after _fantasy.dme so overrides work
 
