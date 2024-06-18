@@ -1,4 +1,11 @@
 /mob/living/human/get_life_damage_types()
+	if(has_trait(/decl/trait/undead))
+		// Undead human mobs use brute and burn damage instead of brain damage, a la simplemobs.
+		var/static/list/life_damage_types = list(
+			BURN,
+			BRUTE
+		)
+		return life_damage_types
 	var/static/list/brain_life_damage_types = list(
 		BRAIN
 	)
@@ -137,9 +144,13 @@
 	return 0
 
 /mob/living/human/setOxyLoss(var/amount)
+	if(has_trait(/decl/trait/undead))
+		return
 	take_damage(amount - get_damage(OXY), OXY)
 
 /mob/living/human/adjustOxyLoss(var/damage, var/do_update_health = TRUE)
+	if(has_trait(/decl/trait/undead))
+		return
 	. = FALSE
 	if(need_breathe())
 		var/obj/item/organ/internal/lungs/breathe_organ = get_organ(get_bodytype().breathing_organ, /obj/item/organ/internal/lungs)
@@ -150,7 +161,7 @@
 	..(do_update_health = FALSE) // Oxyloss cannot directly kill humans
 
 /mob/living/human/getToxLoss()
-	if((species.species_flags & SPECIES_FLAG_NO_POISON) || isSynthetic())
+	if((species.species_flags & SPECIES_FLAG_NO_POISON) || isSynthetic() || has_trait(/decl/trait/undead))
 		return 0
 	var/amount = 0
 	for(var/obj/item/organ/internal/I in get_internal_organs())
@@ -158,13 +169,13 @@
 	return amount
 
 /mob/living/human/setToxLoss(var/amount)
-	if(!(species.species_flags & SPECIES_FLAG_NO_POISON) && !isSynthetic())
+	if(!(species.species_flags & SPECIES_FLAG_NO_POISON) && !isSynthetic() || has_trait(/decl/trait/undead))
 		take_damage(get_damage(TOX)-amount, TOX)
 
 // TODO: better internal organ damage procs.
 /mob/living/human/adjustToxLoss(var/amount, var/do_update_health = TRUE)
 
-	if((species.species_flags & SPECIES_FLAG_NO_POISON) || isSynthetic())
+	if((species.species_flags & SPECIES_FLAG_NO_POISON) || isSynthetic() || has_trait(/decl/trait/undead))
 		return
 
 	var/heal = amount < 0
