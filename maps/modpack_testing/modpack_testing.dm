@@ -24,6 +24,7 @@
 	#include "../../mods/content/pheromones/_pheromones.dme"
 	#include "../../mods/species/drakes/_drakes.dme" // include before _fantasy.dme so overrides work
 	#include "../../mods/content/fantasy/_fantasy.dme"
+	#include "../../mods/pyrelight/_pyrelight.dme" // include after _fantasy.dme so overrides work
 
 	#include "../../mods/mobs/dionaea/_dionaea.dme"
 	#include "../../mods/mobs/borers/_borers.dme"
