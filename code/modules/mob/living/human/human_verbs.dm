@@ -1,4 +1,4 @@
-/mob/living/carbon/human/proc/morph()
+/mob/living/human/proc/morph()
 	set name = "Morph"
 	set category = "Superpower"
 
@@ -7,8 +7,8 @@
 		remoteview_target = null
 		return
 
-	if(!(mMorph in mutations))
-		src.verbs -= /mob/living/carbon/human/proc/morph
+	if(!has_genetic_condition(GENE_COND_SHAPESHIFTER))
+		src.verbs -= /mob/living/human/proc/morph
 		return
 
 	var/new_facial = input("Please select facial hair color.", "Character Generation", GET_FACIAL_HAIR_COLOUR(src)) as color
@@ -67,12 +67,11 @@
 
 	update_hair()
 	try_refresh_visible_overlays()
-	check_dna()
 
 	var/decl/pronouns/G = get_pronouns()
 	visible_message("<span class='notice'>\The [src] morphs and changes [G.his] appearance!</span>", "<span class='notice'>You change your appearance!</span>", "<span class='warning'>Oh, god!  What the hell was that?  It sounded like flesh getting squished and bone ground into a different shape!</span>")
 
-/mob/living/carbon/human/proc/remotesay()
+/mob/living/human/proc/remotesay()
 	set name = "Project mind"
 	set category = "Superpower"
 
@@ -81,8 +80,8 @@
 		remoteview_target = null
 		return
 
-	if(!(mRemotetalk in src.mutations))
-		src.verbs -= /mob/living/carbon/human/proc/remotesay
+	if(!has_genetic_condition(GENE_COND_REMOTE_TALK))
+		src.verbs -= /mob/living/human/proc/remotesay
 		return
 	var/list/creatures = list()
 	for(var/mob/living/h in global.player_list)
@@ -92,7 +91,7 @@
 		return
 
 	var/say = sanitize(input("What do you wish to say"))
-	if(mRemotetalk in target.mutations)
+	if(target.has_genetic_condition(GENE_COND_REMOTE_TALK))
 		target.show_message("<span class='notice'>You hear [src.real_name]'s voice: [say]</span>")
 	else
 		target.show_message("<span class='notice'>You hear a voice that seems to echo around the room: [say]</span>")
@@ -101,7 +100,7 @@
 	for(var/mob/observer/ghost/G in global.player_list)
 		G.show_message("<i>Telepathic message from <b>[src]</b> to <b>[target]</b>: [say]</i>")
 
-/mob/living/carbon/human/proc/remoteobserve()
+/mob/living/human/proc/remoteobserve()
 	set name = "Remote View"
 	set category = "Superpower"
 
@@ -110,10 +109,10 @@
 		reset_view(0)
 		return
 
-	if(!(mRemote in src.mutations))
+	if(!has_genetic_condition(GENE_COND_REMOTE_VIEW))
 		remoteview_target = null
 		reset_view(0)
-		src.verbs -= /mob/living/carbon/human/proc/remoteobserve
+		src.verbs -= /mob/living/human/proc/remoteobserve
 		return
 
 	if(client.eye != client.mob)
@@ -138,7 +137,7 @@
 		remoteview_target = null
 		reset_view(0)
 
-/mob/living/carbon/human/proc/remove_splints()
+/mob/living/human/proc/remove_splints()
 	set category = "Object"
 	set name = "Remove Splints"
 	set desc = "Carefully remove splints from someone's limbs."
@@ -162,9 +161,9 @@
 		user.visible_message(SPAN_DANGER("\The [user] removes \the [src]'s splints!"))
 	else
 		to_chat(user, SPAN_WARNING("\The [src] has no splints that can be removed."))
-	verbs -= /mob/living/carbon/human/proc/remove_splints
+	verbs -= /mob/living/human/proc/remove_splints
 
-/mob/living/carbon/human/verb/check_pulse()
+/mob/living/human/verb/check_pulse()
 	set category = "Object"
 	set name = "Check pulse"
 	set desc = "Approximately count somebody's pulse. Requires you to stand still at least 6 seconds."
@@ -198,7 +197,7 @@
 	else
 		to_chat(usr, "<span class='warning'>You failed to check the pulse. Try again.</span>")
 
-/mob/living/carbon/human/proc/bloody_doodle()
+/mob/living/human/proc/bloody_doodle()
 	set category = "IC"
 	set name = "Write in blood"
 	set desc = "Use blood on your hands to write a short message on the floor or a wall, murder mystery style."
@@ -214,7 +213,7 @@
 		if(grabber.coating)
 			bloody_hands += REAGENT_VOLUME(grabber.coating, /decl/material/liquid/blood)
 	if (!bloody_hands)
-		verbs -= /mob/living/carbon/human/proc/bloody_doodle
+		verbs -= /mob/living/human/proc/bloody_doodle
 
 	var/obj/item/gloves = get_equipped_item(slot_gloves_str)
 	if (gloves)
@@ -259,7 +258,7 @@
 		W.message = message
 		W.add_fingerprint(src)
 
-/mob/living/carbon/human/proc/undislocate()
+/mob/living/human/proc/undislocate()
 	set category = "Object"
 	set name = "Undislocate Joint"
 	set desc = "Pop a joint back into place. Extremely painful."
@@ -321,7 +320,7 @@
 		)
 		current_limb.undislocate()
 
-/mob/living/carbon/human/verb/pull_punches()
+/mob/living/human/verb/pull_punches()
 	set name = "Switch Stance"
 	set desc = "Try not to hurt them."
 	set category = "IC"

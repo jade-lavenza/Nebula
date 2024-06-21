@@ -168,7 +168,7 @@
 	if(M.get_sound_volume_multiplier() < 0.2)
 		ear_safety += 2
 	if(ishuman(M))
-		var/mob/living/carbon/human/H = M
+		var/mob/living/human/H = M
 		if(istype(H.get_equipped_item(slot_head_str), /obj/item/clothing/head/helmet))
 			ear_safety += 1
 
@@ -186,7 +186,7 @@
 		to_chat(M, SPAN_DANGER("Your ears start to ring badly!"))
 		if(prob(GET_STATUS(M, STAT_TINNITUS) - 5))
 			to_chat(M, SPAN_DANGER("You can't hear anything!"))
-			M.set_sdisability(DEAFENED)
+			M.add_genetic_condition(GENE_COND_DEAFENED)
 	else
 		if(GET_STATUS(M, STAT_TINNITUS) >= 5)
 			to_chat(M, SPAN_DANGER("Your ears start to ring!"))
