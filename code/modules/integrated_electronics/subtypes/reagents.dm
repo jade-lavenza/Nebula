@@ -50,8 +50,8 @@
 	var/notified = FALSE
 
 /obj/item/integrated_circuit/reagent/on_reagent_change()
-	..()
-	push_vol()
+	if((. = ..()))
+		push_vol()
 
 /obj/item/integrated_circuit/reagent/smoke/do_work(ord)
 	switch(ord)
@@ -214,12 +214,12 @@
 		var/tramount = abs(transfer_amount)
 
 		if(ishuman(AM))
-			var/mob/living/carbon/human/H = AM
+			var/mob/living/human/H = AM
 			var/injection_status = H.can_inject(null, BP_CHEST)
 			var/injection_delay = 3 SECONDS
 			if(injection_status == INJECTION_PORT)
 				injection_delay += INJECTION_PORT_DELAY
-			if(!H.dna || !injection_status)
+			if(!H.vessel?.total_volume || !injection_status)
 				activate_pin(3)
 				return
 			H.visible_message(

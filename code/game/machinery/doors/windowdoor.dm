@@ -140,7 +140,7 @@
 
 /obj/machinery/door/window/physical_attack_hand(mob/user)
 	if(ishuman(user))
-		var/mob/living/carbon/human/H = user
+		var/mob/living/human/H = user
 		if(H.species.can_shred(H))
 			playsound(loc, 'sound/effects/Glasshit.ogg', 75, 1)
 			visible_message("<span class='danger'>\The [user] smashes against \the [src].</span>", 1)
@@ -198,7 +198,7 @@
 		flick("[base_state]deny", src)
 
 /obj/machinery/door/window/bash(obj/item/I, mob/user)
-	//Emags and ninja swords? You may pass.
+	//Emags and energy swords? You may pass.
 	if (istype(I, /obj/item/energy_blade))
 		var/obj/item/energy_blade/blade = I
 		if(blade.is_special_cutting_tool() && emag_act(10, user))

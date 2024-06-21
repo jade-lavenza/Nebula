@@ -11,7 +11,7 @@
 	if(!fingerprintshidden)
 		fingerprintshidden = list()
 	if (ishuman(M))
-		var/mob/living/carbon/human/H = M
+		var/mob/living/human/H = M
 		if (H.get_equipped_item(slot_gloves_str))
 			src.fingerprintshidden += "\[[time_stamp()]\] (Wearing gloves). Real name: [H.real_name], Key: [H.key]"
 			return 0
@@ -56,11 +56,7 @@
 		other_forensics.add_data(T, F.data)
 
 /obj/item/proc/add_trace_DNA(mob/living/M)
-	if(!istype(M))
-		return
-	if(M.isSynthetic())
-		return
-	if(istype(M.dna))
+	if(istype(M) && M.has_genetic_information())
 		var/datum/extension/forensic_evidence/forensics = get_or_create_extension(src, /datum/extension/forensic_evidence)
 		forensics.add_from_atom(/datum/forensics/trace_dna, M)
 

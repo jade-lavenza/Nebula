@@ -149,7 +149,7 @@ default behaviour is:
 						if(!tmob.buckled.anchored)
 							step(tmob.buckled, t)
 				if(ishuman(AM))
-					var/mob/living/carbon/human/M = AM
+					var/mob/living/human/M = AM
 					for(var/obj/item/grab/G in M.grabbed_by)
 						step(G.assailant, get_dir(G.assailant, AM))
 						G.adjust_position()
@@ -333,8 +333,7 @@ default behaviour is:
 	// shut down ongoing problems
 	radiation = 0
 	bodytemperature = get_species()?.body_temperature || initial(bodytemperature)
-	sdisabilities = 0
-	disabilities = 0
+	reset_genetic_conditions()
 
 	// fix all status conditions including blind/deaf
 	clear_status_effects()
@@ -615,7 +614,7 @@ default behaviour is:
 
 //called when the mob receives a bright flash
 /mob/living/flash_eyes(intensity = FLASH_PROTECTION_MODERATE, override_blindness_check = FALSE, affect_silicon = FALSE, visual = FALSE, type = /obj/screen/fullscreen/flash)
-	if(eyecheck() < intensity || override_blindness_check)
+	if(eyecheck() < intensity || override_blindness_check || !has_genetic_condition(GENE_COND_BLINDED))
 		overlay_fullscreen("flash", type)
 		spawn(25)
 			if(src)
@@ -645,7 +644,7 @@ default behaviour is:
 	return FALSE
 
 
-/mob/living/carbon/human/canUnEquip(obj/item/I)
+/mob/living/human/canUnEquip(obj/item/I)
 	. = ..() && !(I in get_organs())
 
 /mob/proc/can_be_possessed_by(var/mob/observer/ghost/possessor)
@@ -748,7 +747,7 @@ default behaviour is:
 		. += 15
 	if(HAS_STATUS(src, STAT_CONFUSE))
 		. += 30
-	if(MUTATION_CLUMSY in mutations)
+	if(has_genetic_condition(GENE_COND_CLUMSY))
 		. += 40
 
 /mob/living/proc/ranged_accuracy_mods()
@@ -761,7 +760,7 @@ default behaviour is:
 		. -= 5
 	if(HAS_STATUS(src, STAT_BLURRY))
 		. -= 1
-	if(MUTATION_CLUMSY in mutations)
+	if(has_genetic_condition(GENE_COND_CLUMSY))
 		. -= 3
 
 /mob/living/can_drown()
@@ -837,12 +836,20 @@ default behaviour is:
 /mob/living/proc/handle_additional_vomit_reagents(var/obj/effect/decal/cleanable/vomit/vomit)
 	vomit.add_to_reagents(/decl/material/liquid/acid/stomach, 5)
 
+/mob/living/proc/get_flash_mod()
+	var/vision_organ_tag = get_vision_organ_tag()
+	if(vision_organ_tag)
+		var/obj/item/organ/internal/eyes/I = get_organ(vision_organ_tag, /obj/item/organ/internal/eyes)
+		if(I) // get_organ with a type passed already does a typecheck
+			return I.get_flash_mod()
+	return get_bodytype()?.eye_flash_mod
+
 /mob/living/proc/eyecheck()
 	var/total_protection = flash_protection
 	if(should_have_organ(BP_EYES))
-		var/decl/bodytype/root_bodytype = get_bodytype()
-		if(root_bodytype.has_organ[root_bodytype.vision_organ])
-			var/obj/item/organ/internal/eyes/I = get_organ(root_bodytype.vision_organ, /obj/item/organ/internal/eyes)
+		var/vision_organ_tag = get_vision_organ_tag()
+		if(vision_organ_tag && get_bodytype()?.has_organ[vision_organ_tag])
+			var/obj/item/organ/internal/eyes/I = get_organ(vision_organ_tag, /obj/item/organ/internal/eyes)
 			if(!I?.is_usable())
 				return FLASH_PROTECTION_MAJOR
 			total_protection = I.get_total_protection(flash_protection)
@@ -1158,11 +1165,13 @@ default behaviour is:
 	//We are long dead, or we're junk mobs spawned like the clowns on the clown shuttle
 	return life_tick <= 5 || !timeofdeath || (timeofdeath >= 5 && (world.time-timeofdeath) <= 10 MINUTES)
 
-/mob/living/proc/check_dna()
-	dna?.check_integrity(src)
-
 /mob/living/get_unique_enzymes()
+	if(isnull(unique_enzymes) && has_genetic_information())
+		set_unique_enzymes(md5(name))
 	return unique_enzymes
+
+/mob/living/set_unique_enzymes(value)
+	unique_enzymes = value
 
 /mob/living/get_blood_type()
 	return blood_type
@@ -1198,7 +1207,7 @@ default behaviour is:
 		var/how_open = round(E.how_open())
 		if(how_open <= 0)
 			continue
-		var/surgery_icon = E.species.get_surgery_overlay_icon(src)
+		var/surgery_icon = E.get_surgery_overlay_icon()
 		if(!surgery_icon)
 			continue
 		if(!total)
@@ -1275,6 +1284,8 @@ default behaviour is:
 	return "Unknown"
 
 /mob/living/proc/identity_is_visible()
+	if(has_genetic_condition(GENE_COND_HUSK))
+		return FALSE
 	if(!real_name)
 		return FALSE
 	var/obj/item/clothing/mask/mask = get_equipped_item(slot_wear_mask_str)
@@ -1633,3 +1644,19 @@ default behaviour is:
 		for(var/obj/item/organ/organ in stat_organs)
 			var/list/organ_info = organ.get_stat_info()
 			stat(organ_info[1], organ_info[2])
+
+/mob/living/force_update_limbs()
+	for(var/obj/item/organ/external/O in get_external_organs())
+		O.sync_colour_to_human(src)
+	update_body(0)
+
+/mob/living/proc/get_vision_organ_tag()
+	return get_bodytype()?.vision_organ
+
+/mob/living/proc/get_darksight_range()
+	var/vision_organ_tag = get_vision_organ_tag()
+	if(vision_organ_tag)
+		var/obj/item/organ/internal/eyes/I = get_organ(vision_organ_tag, /obj/item/organ/internal/eyes)
+		if(istype(I))
+			return I.get_darksight_range()
+	return get_bodytype()?.eye_darksight_range

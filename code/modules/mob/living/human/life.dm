@@ -20,10 +20,10 @@
 #define COLD_GAS_DAMAGE_LEVEL_2 1.5 //Amount of damage applied when the current breath's temperature passes the 200K point
 #define COLD_GAS_DAMAGE_LEVEL_3 3 //Amount of damage applied when the current breath's temperature passes the 120K point
 
-/mob/living/carbon/human
+/mob/living/human
 	var/stamina = 100
 
-/mob/living/carbon/human/handle_living_non_stasis_processes()
+/mob/living/human/handle_living_non_stasis_processes()
 	. = ..()
 	if(!.)
 		return FALSE
@@ -34,10 +34,10 @@
 	handle_pain()
 	handle_stamina()
 
-/mob/living/carbon/human/get_stamina()
+/mob/living/human/get_stamina()
 	return stamina
 
-/mob/living/carbon/human/adjust_stamina(var/amt)
+/mob/living/human/adjust_stamina(var/amt)
 	var/last_stamina = stamina
 	if(stat == DEAD)
 		stamina = 0
@@ -52,12 +52,12 @@
 	if(last_stamina != stamina && istype(hud_used))
 		hud_used.update_stamina()
 
-/mob/living/carbon/human/proc/handle_stamina()
+/mob/living/human/proc/handle_stamina()
 	if((world.time - last_quick_move_time) > 5 SECONDS)
 		var/mod = (current_posture.prone + (nutrition / get_max_nutrition())) / 2
 		adjust_stamina(max(get_config_value(/decl/config/num/movement_max_stamina_recovery), get_config_value(/decl/config/num/movement_min_stamina_recovery) * mod) * (1 + GET_CHEMICAL_EFFECT(src, CE_ENERGETIC)))
 
-/mob/living/carbon/human/set_stat(var/new_stat)
+/mob/living/human/set_stat(var/new_stat)
 	var/old_stat = stat
 	. = ..()
 	if(stat)
@@ -69,7 +69,7 @@
 // Calculate how vulnerable the human is to the current pressure.
 // Returns 0 (equals 0 %) if sealed in an undamaged suit that's rated for the pressure, 1 if unprotected (equals 100%).
 // Suitdamage can modifiy this in 10% steps.
-/mob/living/carbon/human/proc/get_pressure_weakness(pressure)
+/mob/living/human/proc/get_pressure_weakness(pressure)
 
 	var/pressure_adjustment_coefficient = 0
 	var/list/zones = list(SLOT_HEAD, SLOT_UPPER_BODY, SLOT_LOWER_BODY, SLOT_LEGS, SLOT_FEET, SLOT_ARMS, SLOT_HANDS)
@@ -86,7 +86,7 @@
 	return pressure_adjustment_coefficient
 
 // Calculate how much of the enviroment pressure-difference affects the human.
-/mob/living/carbon/human/calculate_affecting_pressure(var/pressure)
+/mob/living/human/calculate_affecting_pressure(var/pressure)
 	var/pressure_difference
 
 	// First get the absolute pressure difference.
@@ -112,7 +112,7 @@
 	else
 		return ONE_ATMOSPHERE + pressure_difference
 
-/mob/living/carbon/human/handle_impaired_vision()
+/mob/living/human/handle_impaired_vision()
 
 	. = ..()
 	if(!.)
@@ -120,47 +120,36 @@
 
 	//Vision
 	var/obj/item/organ/vision
-	var/decl/bodytype/root_bodytype = get_bodytype()
-	if(root_bodytype.vision_organ)
-		vision = GET_INTERNAL_ORGAN(src, root_bodytype.vision_organ)
+	var/vision_organ_tag = get_vision_organ_tag()
+	if(vision_organ_tag)
+		vision = GET_INTERNAL_ORGAN(src, vision_organ_tag)
 
-	if(!root_bodytype.vision_organ) // Presumably if a species has no vision organs, they see via some other means.
+	if(!vision_organ_tag) // Presumably if a species has no vision organs, they see via some other means.
 		set_status(STAT_BLIND, 0)
 		set_status(STAT_BLURRY, 0)
 	else if(!vision || (vision && !vision.is_usable()))   // Vision organs cut out or broken? Permablind.
 		SET_STATUS_MAX(src, STAT_BLIND, 2)
 		SET_STATUS_MAX(src, STAT_BLURRY, 1)
 	// Non-genetic blindness; covered eyes will heal faster.
-	else if(!(sdisabilities & BLINDED) && equipment_tint_total >= TINT_BLIND)
+	else if(!has_genetic_condition(GENE_COND_BLINDED) && equipment_tint_total >= TINT_BLIND)
 		ADJ_STATUS(src, STAT_BLURRY, -1)
 
-/mob/living/carbon/human/handle_disabilities()
+/mob/living/human/handle_disabilities()
 	..()
-	if(stat != DEAD && (disabilities & COUGHING) && prob(5) && GET_STATUS(src, STAT_PARA) <= 1)
+	if(stat != DEAD && has_genetic_condition(GENE_COND_COUGHING) && prob(5) && GET_STATUS(src, STAT_PARA) <= 1)
 		drop_held_items()
 		cough()
 
-/mob/living/carbon/human/handle_mutations_and_radiation()
-	if(get_damage(BURN))
-		if((MUTATION_COLD_RESISTANCE in mutations) || (prob(1)))
-			heal_organ_damage(0,1)
+/mob/living/human/handle_mutations_and_radiation()
+	if(get_damage(BURN) && (has_genetic_condition(GENE_COND_COLD_RESISTANCE) || (prob(1))))
+		heal_organ_damage(0,1)
+	..()
 
-	// DNA2 - Gene processing.
-	var/list/all_genes = decls_repository.get_decls_of_subtype(/decl/gene)
-	for(var/gene_type in all_genes)
-		var/decl/gene/gene = all_genes[gene_type]
-		if(!gene.block)
-			continue
-		if(gene.is_active(src))
-			gene.OnMobLife(src)
+/mob/living/human/handle_environment(datum/gas_mixture/environment)
 
 	..()
 
-/mob/living/carbon/human/handle_environment(datum/gas_mixture/environment)
-
-	..()
-
-	if(!environment || (MUTATION_SPACERES in mutations))
+	if(!environment || has_genetic_condition(GENE_COND_SPACE_RESISTANCE))
 		return
 
 	//Stuff like water absorbtion happens here.
@@ -268,19 +257,19 @@
 
 	return
 
-/mob/living/carbon/human/get_bodytemperature_difference()
+/mob/living/human/get_bodytemperature_difference()
 	if (on_fire)
 		return 0 //too busy for pesky metabolic regulation
 	return ..()
 
-/mob/living/carbon/human/stabilize_body_temperature()
+/mob/living/human/stabilize_body_temperature()
 	// Robolimbs cause overheating too.
 	if(robolimb_count)
 		bodytemperature += round(robolimb_count/2)
 	return ..()
 
 //This proc returns a number made up of the flags for body parts which you are protected on. (such as HEAD, SLOT_UPPER_BODY, SLOT_LOWER_BODY, etc. See setup.dm for the full list)
-/mob/living/carbon/human/proc/get_heat_protection_flags(temperature) //Temperature is the temperature you're being exposed to.
+/mob/living/human/proc/get_heat_protection_flags(temperature) //Temperature is the temperature you're being exposed to.
 	. = 0
 	//Handle normal clothing
 	for(var/slot in global.standard_clothing_slots)
@@ -294,7 +283,7 @@
 						. |= accessory.heat_protection
 
 //See proc/get_heat_protection_flags(temperature) for the description of this proc.
-/mob/living/carbon/human/proc/get_cold_protection_flags(temperature)
+/mob/living/human/proc/get_cold_protection_flags(temperature)
 	. = 0
 	//Handle normal clothing
 	for(var/slot in global.standard_clothing_slots)
@@ -308,19 +297,19 @@
 						. |= accessory.cold_protection
 
 
-/mob/living/carbon/human/get_heat_protection(temperature) //Temperature is the temperature you're being exposed to.
+/mob/living/human/get_heat_protection(temperature) //Temperature is the temperature you're being exposed to.
 	var/thermal_protection_flags = get_heat_protection_flags(temperature)
 	return get_thermal_protection(thermal_protection_flags)
 
-/mob/living/carbon/human/get_cold_protection(temperature)
-	if(MUTATION_COLD_RESISTANCE in mutations)
+/mob/living/human/get_cold_protection(temperature)
+	if(has_genetic_condition(GENE_COND_COLD_RESISTANCE))
 		return 1 //Fully protected from the cold.
 
 	temperature = max(temperature, 2.7) //There is an occasional bug where the temperature is miscalculated in ares with a small amount of gas on them, so this is necessary to ensure that that bug does not affect this calculation. Space's temperature is 2.7K and most suits that are intended to protect against any cold, protect down to 2.0K.
 	var/thermal_protection_flags = get_cold_protection_flags(temperature)
 	return get_thermal_protection(thermal_protection_flags)
 
-/mob/living/carbon/human/proc/get_thermal_protection(var/flags)
+/mob/living/human/proc/get_thermal_protection(var/flags)
 	.=0
 	if(flags)
 		if(flags & SLOT_HEAD)
@@ -347,13 +336,13 @@
 			. += THERMAL_PROTECTION_HAND_RIGHT
 	return min(1,.)
 
-/mob/living/carbon/human/apply_chemical_effects()
+/mob/living/human/apply_chemical_effects()
 	. = ..()
 	if(has_chemical_effect(CE_GLOWINGEYES, 1))
 		update_eyes()
 		return TRUE
 
-/mob/living/carbon/human/handle_regular_status_updates()
+/mob/living/human/handle_regular_status_updates()
 
 	voice = GetVoice()
 	SetName(get_visible_name())
@@ -418,7 +407,7 @@
 				SET_STATUS_MAX(src, STAT_ASLEEP, 5)
 
 
-/mob/living/carbon/human/handle_regular_hud_updates()
+/mob/living/human/handle_regular_hud_updates()
 	if(life_tick%30==15)
 		hud_updateflag = 1022
 	if(hud_updateflag) // update our mob's hud overlays, AKA what others see flaoting above our head
@@ -602,7 +591,7 @@
 						bodytemp.icon_state = "temp0"
 	return 1
 
-/mob/living/carbon/human/handle_random_events()
+/mob/living/human/handle_random_events()
 	// Puke if toxloss is too high
 	var/vomit_score = 0
 	for(var/tag in list(BP_LIVER,BP_KIDNEYS))
@@ -633,7 +622,7 @@
 		to_chat(src,"<span class='notice'>You feel like you're [pick("moving","flying","floating","falling","hovering")].</span>")
 
 #define BASE_SHOCK_RECOVERY 1
-/mob/living/carbon/human/proc/handle_shock()
+/mob/living/human/proc/handle_shock()
 	if(!can_feel_pain() || (status_flags & GODMODE))
 		shock_stage = 0
 		return
@@ -713,7 +702,7 @@
 	we only set those statuses and icons upon changes.  Then those HUD items will simply add those pre-made images.
 	This proc below is only called when those HUD elements need to change as determined by the mobs hud_updateflag.
 */
-/mob/living/carbon/human/proc/handle_hud_list()
+/mob/living/human/proc/handle_hud_list()
 	if (BITTEST(hud_updateflag, HEALTH_HUD) && hud_list[HEALTH_HUD])
 		var/image/holder = hud_list[HEALTH_HUD]
 		if(stat == DEAD)
@@ -822,7 +811,7 @@
 			hud_list[SPECIALROLE_HUD] = holder
 	hud_updateflag = 0
 
-/mob/living/carbon/human/handle_fire()
+/mob/living/human/handle_fire()
 	if(..())
 		return
 
@@ -852,22 +841,21 @@
 		if(!(E.body_part & protected_limbs) && prob(20))
 			E.take_external_damage(burn = round(species_heat_mod * log(10, (burn_temperature + 10)), 0.1), used_weapon = "fire")
 
-/mob/living/carbon/human/rejuvenate()
+/mob/living/human/rejuvenate()
 	reset_blood()
 	full_prosthetic = null
 	shock_stage = 0
 	..()
 	adjust_stamina(100)
-	UpdateAppearance()
 
-/mob/living/carbon/human/reset_view(atom/A)
+/mob/living/human/reset_view(atom/A)
 	..()
 	if(machine_visual && machine_visual != A)
 		machine_visual.remove_visual(src)
 	if(eyeobj)
 		eyeobj.remove_visual(src)
 
-/mob/living/carbon/human/handle_vision()
+/mob/living/human/handle_vision()
 	if(client)
 		var/datum/global_hud/global_hud = get_global_hud()
 		client.screen.Remove(global_hud.nvg, global_hud.thermal, global_hud.meson, global_hud.science)
@@ -879,14 +867,14 @@
 			set_sight(sight|viewflags)
 	if(eyeobj && eyeobj.owner != src)
 		reset_view(null)
-	if((mRemote in mutations) && remoteview_target && remoteview_target.stat != CONSCIOUS)
+	if(has_genetic_condition(GENE_COND_REMOTE_VIEW) && remoteview_target && remoteview_target.stat != CONSCIOUS)
 		remoteview_target = null
 		reset_view(null, 0)
 
 	update_equipment_vision()
 	species.handle_vision(src)
 
-/mob/living/carbon/human/update_living_sight()
+/mob/living/human/update_living_sight()
 	..()
-	if(GET_CHEMICAL_EFFECT(src, CE_THIRDEYE) || (MUTATION_XRAY in mutations))
+	if(GET_CHEMICAL_EFFECT(src, CE_THIRDEYE) || has_genetic_condition(GENE_COND_XRAY))
 		set_sight(sight|SEE_TURFS|SEE_MOBS|SEE_OBJS)

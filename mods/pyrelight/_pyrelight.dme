@@ -1,9 +1,18 @@
+// BEGIN_INCLUDE
 #ifndef MODPACK_PYRELIGHT
 #define MODPACK_PYRELIGHT
 #include "_pyrelight.dm"
-#include "datum/culture.dm"
-#include "datum/factions.dm"
-#include "datum/locations.dm"
-#include "datum/religions.dm"
-#include "plants/_plants.dme"
+#include "datum\culture.dm"
+#include "datum\factions.dm"
+#include "datum\locations.dm"
+#include "datum\religions.dm"
+#include "plants\_plants.dm"
+#include "plants\_plot.dm"
+#include "plants\_subsystem.dm"
+#include "plants\plants_fruit.dm"
+#include "plants\plants_fruit_segment.dm"
+#include "plants\plants_fruit_template.dm"
+#include "plants\fruit_subtypes\nightweave.dm"
+#include "plants\plant_subtypes\nightweave.dm"
 #endif
+// END_INCLUDE
