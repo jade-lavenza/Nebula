@@ -1202,6 +1202,16 @@
 	var/temp_inc = max(min(BODYTEMP_HEATING_MAX*(1-get_heat_protection()), exposed_temperature - bodytemperature), 0)
 	bodytemperature += temp_inc
 
+/mob/living/human/need_breathe()
+	return has_trait(/decl/trait/undead) ? FALSE : ..()
+
+// Undead don't get hungry/thirsty (except for brains)
+/mob/living/human/get_nutrition()
+	return has_trait(/decl/trait/undead) ? get_max_nutrition() : ..()
+
+/mob/living/human/get_hydration()
+	return has_trait(/decl/trait/undead) ? get_max_hydration() : ..()
+
 /mob/living/human/currently_has_skin()
 	return currently_has_meat()
 
@@ -1213,3 +1223,13 @@
 		if(istype(limb.material, /decl/material/solid/organic/meat))
 			return TRUE
 	return FALSE
+
+/mob/living/human/set_status(condition, amount)
+	if(has_trait(/decl/trait/undead, TRAIT_LEVEL_MODERATE))
+		var/static/list/ignore_status_conditions = list(
+			STAT_BLIND,
+			STAT_DEAF
+		)
+		if(condition in ignore_status_conditions)
+			return
+	. = ..()
