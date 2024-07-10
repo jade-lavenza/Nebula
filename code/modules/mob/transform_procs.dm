@@ -135,7 +135,7 @@
 
 	O.dropInto(loc)
 	O.job = ASSIGNMENT_ROBOT
-	callHook("borgify", list(O))
+	RAISE_EVENT(/decl/observ/cyborg_created, O)
 	O.Namepick()
 
 	qdel(src) // Queues us for a hard delete
@@ -223,7 +223,7 @@
 		return 0	//Sanity, this should never happen.
 
 //Good mobs!
-	if(ispath(MP, /mob/living/simple_animal/cat))
+	if(ispath(MP, /mob/living/simple_animal/passive/cat))
 		return 1
 	if(ispath(MP, /mob/living/simple_animal/corgi))
 		return 1
@@ -239,7 +239,7 @@
 		return 1
 	if(ispath(MP, /mob/living/simple_animal/hostile/bear))
 		return 1
-	if(ispath(MP, /mob/living/simple_animal/hostile/retaliate/parrot))
+	if(ispath(MP, /mob/living/simple_animal/hostile/parrot))
 		return 1
 
 	//Not in here? Must be untested!
