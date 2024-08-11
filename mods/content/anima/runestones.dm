@@ -109,7 +109,7 @@
 	if(!stored_spell?.spell_master)
 		var/decl/material/solid/anima/anima = material
 		if(istype(anima) && anima.undirected_spell?.base_effect)
-			anima.undirected_spell.base_effect.evoke_spell(user, get_turf(user), null)
+			anima.undirected_spell.base_effect.evoke_spell(user, get_turf(user), null, deliberate = deliberate)
 		else
 			new /obj/item/shard(get_turf(user), material?.type)
 		qdel(src)
