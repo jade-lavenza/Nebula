@@ -80,7 +80,7 @@
 			return
 		// Refresh spell list for checking.
 		possible_spells = anima_mat.get_cantrips_by_effect_type(user, stored_spell.effect_type)
-		if(!(chosen_spell in possible_spells) || QDELETED(src) || stored_spell || stored_spell.spell_master)
+		if(!(chosen_spell in possible_spells) || QDELETED(src) || stored_spell.spell_master)
 			return
 		to_chat(user, SPAN_NOTICE("You painstakingly etch the runes required to evoke [chosen_spell] onto \the [src]."))
 		stored_spell.spell_master = chosen_spell
