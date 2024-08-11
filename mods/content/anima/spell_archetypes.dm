@@ -7,9 +7,7 @@
 	var/arcana_skill = SKILL_SCIENCE
 
 /decl/runestone_spell_archetype/Initialize()
-	for(var/spell_effect in masterwork_effects)
-		masterwork_effects -= spell_effect
-		masterwork_effects |= GET_DECL(spell_effect)
+	masterwork_effects = decls_repository.get_decls_unassociated(masterwork_effects)
 	base_effect = GET_DECL(base_effect)
 	name = base_effect.name
 	return ..()
