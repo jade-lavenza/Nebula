@@ -1,7 +1,7 @@
 /decl/chemical_reaction/drug/herbal
 	abstract_type       = /decl/chemical_reaction/drug/herbal
 	result_amount       = 2
-	minimum_temperature = 100 CELSIUS
+	minimum_temperature = 50 CELSIUS
 
 /decl/chemical_reaction/drug/herbal/on_reaction(var/datum/reagents/holder, var/created_volume, var/reaction_flags)
 	. = ..()
