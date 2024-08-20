@@ -31,6 +31,9 @@
 	if(LAZYLEN(.) && vessel)
 		LAZYREMOVE(., vessel)
 
+/obj/structure/fire_source/heater/get_fire_exposed_atoms()
+	return get_contained_temperature_sensitive_atoms()
+
 /obj/structure/fire_source/heater/proc/set_vessel(new_vessel, skip_loc_change)
 	if(new_vessel == vessel)
 		return
