@@ -49,7 +49,7 @@
 	if(required_volume > 0)
 		if(reagents)
 			reagents.maximum_volume = required_volume
-			reagents.update_total()
+			reagents.handle_update()
 		else if(atom_flags & ATOM_FLAG_INITIALIZED)
 			create_reagents(required_volume)
 		else

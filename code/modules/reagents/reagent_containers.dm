@@ -195,6 +195,8 @@
 			var/removing = min(5, reagents.reagent_volumes[reagent])
 			reagents.remove_reagent(reagent, removing, defer_update = TRUE, removed_phases = MAT_PHASE_LIQUID)
 			loc.take_vaporized_reagent(reagent, removing)
+			. = null // Don't return PROCESS_KILL, we may have more to vaporise
+	reagents.handle_update()
 
 /obj/item/chems/take_vaporized_reagent(reagent, amount)
 	// TODO: check ATOM_IS_OPEN_CONTAINER(src) when there is a closed container for alembic vessels
