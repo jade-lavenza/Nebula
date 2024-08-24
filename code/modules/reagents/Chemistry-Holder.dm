@@ -389,6 +389,10 @@ var/global/obj/temp_reagents_holder = new
 		LAZYREMOVE(reagent_data, reagent_type)
 		if(primary_reagent == reagent_type)
 			primary_reagent = null
+		if(primary_liquid == reagent_type)
+			primary_liquid = null
+		if(primary_solid == reagent_type)
+			primary_solid = null
 		cached_color = null
 
 		if(defer_update)
