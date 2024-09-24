@@ -1,37 +1,55 @@
 <h1 align="center">
   <br>
-  <a href="https://github.com/NebulaSS13/Nebula"><img src="https://avatars1.githubusercontent.com/u/61128341" alt="Nebula 13" width="200"></a>
+  <a href="https://github.com/PyrelightSS13/Pyrelight"><img src="https://avatars1.githubusercontent.com/u/128199108" alt="Pyrelight" width="200"></a>
   <br>
-  Nebula 13
+  Pyrelight
   <br>
 </h1>
 
 <p align="center">
-  <a href="https://github.com/NebulaSS13/Nebula/actions">
-    <img src="https://github.com/NebulaSS13/Nebula/workflows/Run%20Tests/badge.svg"
+  <a href="https://github.com/PyrelightSS13/Pyrelight/actions">
+    <img src="https://github.com/PyrelightSS13/Pyrelight/workflows/Run%20Tests/badge.svg"
          alt="Build Status">
   </a>
-  <a href="https://www.codefactor.io/repository/github/NebulaSS13/Nebula">
-    <img src="https://www.codefactor.io/repository/github/NebulaSS13/Nebula/badge"
+  <a href="https://www.codefactor.io/repository/github/PyrelightSS13/Pyrelight">
+    <img src="https://www.codefactor.io/repository/github/PyrelightSS13/Pyrelight/badge"
          alt="CodeFactor">
   </a>
-  <a href="https://github.com/NebulaSS13/Nebula/commits/dev">
-    <img src="https://img.shields.io/github/last-commit/NebulaSS13/Nebula"
+  <a href="https://github.com/PyrelightSS13/Pyrelight/commits/dev">
+    <img src="https://img.shields.io/github/last-commit/PyrelightSS13/Pyrelight"
          alt="Last Commit">
+  </a>
+  <a href="https://github.com/PyrelightSS13/Pyrelight/issues">
+    <img src="https://img.shields.io/github/issues/PyrelightSS13/Pyrelight"
+         alt="Issues">
   </a>
   <a href="https://github.com/NebulaSS13/Nebula/issues">
     <img src="https://img.shields.io/github/issues/NebulaSS13/Nebula"
-         alt="Issues">
+         alt="Upstream Issues">
   </a>
   <a href="https://discord.gg/Ddw58yF">
     <img src="https://img.shields.io/discord/678820025355862045?style=plastic"
          alt="Discord">
   </a>
-  <a href="https://github.com/NebulaSS13/Nebula/blob/dev/LICENSE">
-    <img src="https://img.shields.io/github/license/NebulaSS13/Nebula"
+  <a href="https://github.com/PyrelightSS13/Pyrelight/blob/dev/LICENSE">
+    <img src="https://img.shields.io/github/license/PyrelightSS13/Pyrelight"
          alt="License">
   </a>
 </p>
+
+| Website                   | Link                                              |
+|---------------------------|---------------------------------------------------|
+| Code                      | [https://github.com/PyrelightSS13/Pyrelight](https://github.com/PyrelightSS13/Pyrelight)        |
+| Issues                    | [https://github.com/PyrelightSS13/Pyrelight/issues](https://github.com/PyrelightSS13/Pyrelight/issues) |
+| Upstream Issues           | [https://github.com/NebulaSS13/Nebula/issues](https://github.com/NebulaSS13/Nebula/issues)       |
+| Discord                   | Currently private, sorry!                         |
+| Nebula Discord            | [https://discord.gg/DYGXkN2S](https://discord.gg/DYGXkN2S)                       |
+
+This is the codebase for Pyrelight, a middle-fantasy total conversion project for Space Station 13, derived from Nebula SS13.
+
+A round of this game intends to represent a lived day (or days) in the life of someone in a remote fantasy village, whether it's a day where they struck it rich or where their house burnt down and they caught the plague.
+
+An emphasis is placed on interconnected, generalized systems that allow for unique, emergent gameplay. Boil your tea with fire magic, forage herbs to concoct medicinal tinctures, or hunt in the woods and use your prey's bones and pelt to make your own equipment; what will *you* do?
 
 <p align="center">
   <a href="#contributing-guidelines">Contributing Guidelines</a> •
@@ -44,7 +62,7 @@
 
 ### NOTICE OF MODIFICATION
 
-This project was forked from [Baystation 12](https://github.com/Baystation12/Baystation12) on 6 Jan 2020.
+This project was forked from [Nebula SS13](https://github.com/NebulaSS13/Nebula) on 15 Jul 2024. Nebula SS13 was forked from [Baystation 12](https://github.com/Baystation12/Baystation12) on 6 Jan 2020.
 
 ---
 
@@ -62,7 +80,7 @@ Please see [/docs/SECURITY.md](/docs/SECURITY.md) for this repository's security
 
 ### LICENSE
 
-The code for Nebula13 is licensed under the [GNU Affero General Public License v3](http://www.gnu.org/licenses/agpl.html), which can be found in full in [/LICENSE](/LICENSE).
+The code for Pyrelight is licensed under the [GNU Affero General Public License v3](http://www.gnu.org/licenses/agpl.html), which can be found in full in [/LICENSE](/LICENSE).
 
 Code with a git authorship date prior to `1420675200 +0000` (2015/01/08 00:00 GMT) is licensed under the GNU General Public License version 3, which can be found in full in [/docs/GPL3.txt](/docs/GPL3.txt)
 

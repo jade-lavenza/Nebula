@@ -1,6 +1,6 @@
 <!-- !! PLEASE, READ THIS !! -->
 <!-- We recommend to check the contributing page before opening pull requests. -->
-<!-- https://github.com/NebulaSS13/Nebula/blob/dev/CONTRIBUTING.md -->
+<!-- https://github.com/PyrelightSS13/Pyrelight/blob/dev/CONTRIBUTING.md -->
 <!-- If you're opening a pull request which changes A LOT of icon/map files: -->
 <!-- Add [IDB IGNORE] (to ignore icon file changes) or [MDB IGNORE] (to ignore map file changes) in the PR title. -->
 <!-- These tags prevent huge diffs from overloading IconDiffBot and MapDiffBot. -->

@@ -6,9 +6,9 @@
 	If you do not fill out the 'specific information' field, please delete the header.
 	/!\ Omitting or not answering a required field will result in your issue being closed. /!\
 	Repeated violation of this rule, or joke or spam issues, will result in punishment.
-	
-	PUT YOUR ANSWERS ON THE BLANK LINES BELOW THE HEADERS 
-	(The lines with four #'s) 
+
+	PUT YOUR ANSWERS ON THE BLANK LINES BELOW THE HEADERS
+	(The lines with four #'s)
 	Don't edit them or delete them - it's part of the formatting
 -->
 
@@ -50,4 +50,5 @@
 - [ ] Issue could be reproduced by different players
 - [ ] Issue could be reproduced in multiple rounds
 - [ ] Issue happened in a recent (less than 7 days ago) round
-- [ ] [Couldn't find an existing issue about this](https://github.com/NebulaSS13/Nebula/issues)
+- [ ] Issue is related to Pyrelight-specific changes
+- [ ] [Couldn't find an existing issue about this](https://github.com/PyrelightSS13/Pyrelight/issues)
