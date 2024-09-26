@@ -153,9 +153,9 @@ default behaviour is:
 							step(tmob.buckled, t)
 				if(ishuman(AM))
 					var/mob/living/human/M = AM
-					for(var/obj/item/grab/G in M.grabbed_by)
-						step(G.assailant, get_dir(G.assailant, AM))
-						G.adjust_position()
+					for(var/obj/item/grab/grab as anything in M.grabbed_by)
+						step(grab.assailant, get_dir(grab.assailant, AM))
+						grab.adjust_position()
 				if(saved_dir)
 					AM.set_dir(saved_dir)
 				now_pushing = 0
@@ -456,8 +456,8 @@ default behaviour is:
 	..()
 
 	if(!isturf(loc))
-		for(var/G in get_active_grabs())
-			qdel(G)
+		for(var/obj/item/grab/grab as anything in get_active_grabs())
+			qdel(grab)
 		return
 
 	if(isturf(old_loc))
@@ -470,16 +470,16 @@ default behaviour is:
 					AM.dropInto(get_turf(src))
 
 	var/list/mygrabs = get_active_grabs()
-	for(var/obj/item/grab/G as anything in mygrabs)
-		if(G.assailant_reverse_facing())
+	for(var/obj/item/grab/grab as anything in mygrabs)
+		if(grab.assailant_reverse_facing())
 			set_dir(global.reverse_dir[direction])
-		G.assailant_moved()
-		if(QDELETED(G) || QDELETED(G.affecting))
-			mygrabs -= G
+		grab.assailant_moved()
+		if(QDELETED(grab) || QDELETED(grab.affecting))
+			mygrabs -= grab
 
 	if(length(grabbed_by))
-		for(var/obj/item/grab/G as anything in grabbed_by)
-			G.adjust_position()
+		for(var/obj/item/grab/grab as anything in grabbed_by)
+			grab.adjust_position()
 		reset_offsets()
 		reset_plane_and_layer()
 
@@ -490,23 +490,23 @@ default behaviour is:
 		var/txt_dir = (direction & UP) ? "upwards" : "downwards"
 		if(old_loc)
 			old_loc.visible_message(SPAN_NOTICE("\The [src] moves [txt_dir]."))
-		for(var/obj/item/grab/G as anything in mygrabs)
-			var/turf/start = G.affecting.loc
-			var/turf/destination = (direction == UP) ? GetAbove(G.affecting) : GetBelow(G.affecting)
-			if(!start.CanZPass(G.affecting, direction))
+		for(var/obj/item/grab/grab as anything in mygrabs)
+			var/turf/start = grab.affecting.loc
+			var/turf/destination = (direction == UP) ? GetAbove(grab.affecting) : GetBelow(grab.affecting)
+			if(!start.CanZPass(grab.affecting, direction))
 				to_chat(src, SPAN_WARNING("\The [start] blocked your pulled object!"))
-				mygrabs -= G
-				qdel(G)
+				mygrabs -= grab
+				qdel(grab)
 				continue
 			for(var/atom/A in destination)
-				if(!A.CanMoveOnto(G.affecting, start, 1.5, direction))
-					to_chat(src, SPAN_WARNING("\The [A] blocks the [G.affecting] you were pulling."))
-					mygrabs -= G
-					qdel(G)
+				if(!A.CanMoveOnto(grab.affecting, start, 1.5, direction))
+					to_chat(src, SPAN_WARNING("\The [A] blocks the [grab.affecting] you were pulling."))
+					mygrabs -= grab
+					qdel(grab)
 					continue
-			G.affecting.forceMove(destination)
-			if(QDELETED(G) || QDELETED(G.affecting))
-				mygrabs -= G
+			grab.affecting.forceMove(destination)
+			if(QDELETED(grab) || QDELETED(grab.affecting))
+				mygrabs -= grab
 			continue
 
 	if(length(mygrabs) && !skill_check(SKILL_MEDICAL, SKILL_BASIC))
@@ -539,14 +539,34 @@ default behaviour is:
 
 /mob/living/proc/process_resist()
 
-	//Getting out of someone's inventory.
-	if(istype(src.loc, /obj/item/holder))
-		escape_inventory(src.loc)
-		return TRUE
+	SHOULD_CALL_PARENT(TRUE)
 
 	//unbuckling yourself
 	if(buckled)
-		spawn() escape_buckle()
+		// TODO: convert vines to structures and have them override user_unbuckle_mob()
+		if(istype(buckled, /obj/effect/vine))
+			var/obj/effect/vine/V = buckled
+			spawn() V.manual_unbuckle(src)
+		else
+			spawn() escape_buckle()
+		return TRUE
+	//drop && roll
+	else if(on_fire)
+		fire_stacks = max(0, fire_stacks-1.2)
+		SET_STATUS_MAX(src, STAT_WEAK, 3)
+		spin(32,2)
+		var/decl/pronouns/pronouns = get_pronouns()
+		visible_message(
+			SPAN_DANGER("\The [src] rolls on the floor, trying to put [pronouns.him][pronouns.self] out!"),
+			SPAN_NOTICE("You stop, drop, and roll!")
+		)
+		sleep(3 SECONDS)
+		if(fire_stacks <= 0)
+			visible_message(
+				SPAN_NOTICE("\The [src] successfully extinguishes [pronouns.him][pronouns.self]!"),
+				SPAN_NOTICE("You extinguish yourself.")
+			)
+			ExtinguishMob()
 		return TRUE
 
 	//Breaking out of a structure?
@@ -555,10 +575,33 @@ default behaviour is:
 		if(C.mob_breakout(src))
 			return TRUE
 
+	//Getting out of someone's inventory.
+	if(istype(src.loc, /obj/item/holder))
+		escape_inventory(src.loc)
+		return TRUE
+
 	// Get rid of someone riding around on you.
 	if(buckled_mob)
 		unbuckle_mob()
 		return TRUE
+
+	// removing equipment
+	var/obj/item/restraint = get_restraining_equipment()
+	if(restraint)
+		spawn()
+			if(QDELETED(restraint) || restraint.loc != src)
+				return
+			var/datum/extension/resistable/restraint_data = get_extension(restraint, /datum/extension/resistable)
+			if(istype(restraint_data))
+				restraint_data.user_try_escape(src, get_equipped_slot_for_item(restraint))
+
+/mob/living/proc/get_restraining_equipment()
+	// List order determines the priority of each slot.
+	var/static/list/restraining_slots = list(slot_wear_suit_str, slot_handcuffed_str)
+	for(var/slot in restraining_slots)
+		var/obj/item/restraint = get_equipped_item(slot)
+		if(istype(restraint) && has_extension(restraint, /datum/extension/resistable))
+			return restraint
 
 /mob/living/proc/escape_inventory(obj/item/holder/H)
 	if(H != src.loc) return
@@ -1474,9 +1517,9 @@ default behaviour is:
 	. = ..()
 	if(buckled_mob)
 		buckled_mob.reset_layer()
-		for(var/obj/item/grab/G in buckled_mob.get_held_items())
-			if(G.get_affecting_mob() == src && !istype(G.current_grab, /decl/grab/simple/control))
-				qdel(G)
+		for(var/obj/item/grab/grab in buckled_mob.get_held_items())
+			if(grab.get_affecting_mob() == src && !istype(grab.current_grab, /decl/grab/simple/control))
+				qdel(grab)
 	if(istype(ai))
 		ai.retaliate(M)
 
@@ -1772,14 +1815,14 @@ default behaviour is:
 	if(attack_delay <= 0)
 		return TRUE
 
-	var/decl/pronouns/G = get_pronouns()
+	var/decl/pronouns/pronouns = get_pronouns()
 	setClickCooldown(attack_delay)
 	face_atom(target)
 
 	stop_automove() // Cancel any baked-in movement.
 	do_windup_animation(target, attack_delay, no_reset = TRUE)
 	if(!do_after(src, attack_delay, target) || !Adjacent(target))
-		visible_message(SPAN_NOTICE("\The [src] misses [G.his] attack on \the [target]!"))
+		visible_message(SPAN_NOTICE("\The [src] misses [pronouns.his] attack on \the [target]!"))
 		reset_offsets(anim_time = 2)
 		ai?.move_to_target(TRUE) // Restart hostile mob tracking.
 		return FALSE
@@ -1789,7 +1832,7 @@ default behaviour is:
 		// Clientless mobs are too dum to move away, so they can be missed.
 		var/mob/mob = target
 		if(!mob.ckey && !prob(get_telegraphed_melee_accuracy()))
-			visible_message(SPAN_NOTICE("\The [src] misses [G.his] attack on \the [target]!"))
+			visible_message(SPAN_NOTICE("\The [src] misses [pronouns.his] attack on \the [target]!"))
 			reset_offsets(anim_time = 2)
 			return FALSE
 
