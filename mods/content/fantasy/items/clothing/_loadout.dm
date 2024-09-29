@@ -262,6 +262,32 @@
 	)
 	uid = "gear_fantasy_bandoler"
 
+/decl/loadout_option/fantasy/utility/waterskin
+	name = "waterskin selection"
+	path = /obj/item/chems/waterskin
+	available_materials = null
+	loadout_flags = null
+	apply_to_existing_if_possible = TRUE // overwrite beggar knight's wineskin
+	uid = "gear_fantasy_waterskin"
+
+/decl/loadout_option/fantasy/utility/waterskin/get_gear_tweak_options()
+	. = ..()
+	LAZYDISTINCTADD(.[/datum/gear_tweak/path], list(
+		"crafted leather waterskin" = /obj/item/chems/waterskin/crafted,
+		"dried stomach waterskin" =   /obj/item/chems/waterskin,
+	))
+	LAZYDISTINCTADD(.[/datum/gear_tweak/reagents], list(
+		"ale" =         /decl/material/liquid/ethanol/ale,
+		"apple cider" = /decl/material/liquid/ethanol/cider_apple,
+		"beer" =        /decl/material/liquid/ethanol/beer,
+		"kvass" =       /decl/material/liquid/ethanol/kvass,
+		"pear cider" =  /decl/material/liquid/ethanol/cider_pear,
+		"red wine" =    /decl/material/liquid/ethanol/wine,
+		"sake" =        /decl/material/liquid/ethanol/sake,
+		"water" =       /decl/material/liquid/water,
+		"white wine" =  /decl/material/liquid/ethanol/wine/premium,
+	))
+
 /decl/loadout_option/fantasy/eyes
 	abstract_type = /decl/loadout_option/fantasy/eyes
 	slot = slot_glasses_str
@@ -289,6 +315,7 @@
 	path = /obj/item/clothing/glasses/prescription/pincenez
 	uid = "gear_fantasy_eyes_glasses"
 	available_materials = null
+	loadout_flags = null
 
 /decl/loadout_option/fantasy/eyes/glasses/get_gear_tweak_options()
 	. = ..()
