@@ -214,9 +214,6 @@
 	},
 /turf/floor/path/running_bond/basalt,
 /area/karzerfeste/outside/ward/wall/four)
-"Cp" = (
-/turf/unsimulated/mask,
-/area/karzerfeste/outside/above)
 "CE" = (
 /turf/wall/brick/basalt/shutter,
 /area/karzerfeste/outside/keep/gatehouse)
@@ -18529,7 +18526,7 @@ iT
 iT
 Uo
 Uo
-Cp
+Uo
 Uo
 Uo
 Uo

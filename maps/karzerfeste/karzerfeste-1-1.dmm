@@ -50,9 +50,6 @@
 /obj/structure/door/basalt,
 /turf/floor/path/running_bond/basalt,
 /area/karzerfeste/keep/gatehouse)
-"mU" = (
-/turf/floor/snow,
-/area/karzerfeste/outside)
 "oB" = (
 /turf/unsimulated/mask,
 /area/karzerfeste/caves/surface_west)
@@ -12808,7 +12805,7 @@ Xt
 Xt
 Xt
 rP
-mU
+rP
 pJ
 pJ
 pJ
