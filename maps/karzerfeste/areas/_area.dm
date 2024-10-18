@@ -22,18 +22,6 @@
 	sound_env = GENERIC
 	ambience = list()
 
-/area/karzerfeste/caves
-	name = "\improper Subterrain"
-	color = COLOR_GRAY40
-	is_outside = OUTSIDE_NO
-	ambience = list(
-		'sound/ambience/ambimine.ogg',
-		'sound/ambience/song_game.ogg'
-	)
-	area_blurb_category = /area/karzerfeste/caves
-	sound_env = CAVE
-	area_flags = AREA_FLAG_IS_BACKGROUND
-
 /area/karzerfeste/outside
 	name = "\improper Wilderness"
 	color = COLOR_GREEN
@@ -54,8 +42,3 @@
 /area/karzerfeste/outside/above
 	name = "\improper Heights"
 	color = COLOR_GRAY80
-
-/area/karzerfeste/outside/caves
-	name = "\improper Subterrain Chasm"
-	color = COLOR_GRAY80
-	sound_env = CAVE

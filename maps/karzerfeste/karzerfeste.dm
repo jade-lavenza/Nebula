@@ -8,7 +8,13 @@
 	#include "../../mods/pyrelight/_pyrelight.dme" // include after _fantasy.dme so overrides work
 
 	#include "areas/_area.dm"
+	#include "areas/caves.dm"
+	#include "areas/keep.dm"
+	#include "areas/road.dm"
+	#include "areas/ward.dm"
+
 	#include "jobs/_job.dm"
+
 	#include "levels/_level.dm"
 	#include "levels/strata.dm"
 	#include "outfits/_outfit.dm"
