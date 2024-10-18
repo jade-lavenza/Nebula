@@ -14,10 +14,23 @@
 	#include "areas/ward.dm"
 
 	#include "jobs/_job.dm"
+	#include "jobs/guild.dm"
+	#include "jobs/keep.dm"
+	#include "jobs/kingdom.dm"
+	#include "jobs/local.dm"
+	#include "jobs/shrine.dm"
+	#include "jobs/steppe.dm"
+
+	#include "outfits/_outfit.dm"
+	#include "outfits/guild.dm"
+	#include "outfits/keep.dm"
+	#include "outfits/kingdom.dm"
+	#include "outfits/local.dm"
+	#include "outfits/shrine.dm"
+	#include "outfits/steppe.dm"
 
 	#include "levels/_level.dm"
 	#include "levels/strata.dm"
-	#include "outfits/_outfit.dm"
 
 	#include "karzerfeste_currency.dm"
 	#include "karzerfeste_events.dm"
