@@ -43,3 +43,8 @@
 	name = "Bear Semblance"
 	mask_type = /obj/item/clothing/mask/ghost_caul/bear
 	uid = "trait_wyrd_wild_bear"
+
+/decl/trait/wyrd/wild/animal_form/wolf
+	name = "Wolf Semblance"
+	mask_type = /obj/item/clothing/mask/ghost_caul/wolf
+	uid = "trait_wyrd_wild_wolf"

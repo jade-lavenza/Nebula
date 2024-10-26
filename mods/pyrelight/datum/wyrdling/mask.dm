@@ -302,3 +302,8 @@
 	name                    = "bear mask"
 	transformation_trait    = /decl/trait/wyrd/wild/animal_form/bear
 	transformation_mob_type = /mob/living/simple_animal/hostile/bear
+
+/obj/item/clothing/mask/ghost_caul/wolf
+	name                    = "wolf mask"
+	transformation_trait    = /decl/trait/wyrd/wild/animal_form/wolf
+	transformation_mob_type = /mob/living/simple_animal/passive/wolf

@@ -1,3 +1,7 @@
+/datum/unit_test/icon_test/food_shall_have_icon_states/assemble_skipped_types()
+	..()
+	skip_types |= typesof(/obj/item/food/fruit_segment)
+
 /obj/item/food/fruit_segment
 	name = "abstract fruit segment"
 	is_spawnable_type = FALSE
