@@ -58,7 +58,7 @@
 					return
 
 	//blunt damage is gud at fracturing
-	if(brute_dam + brute > min_broken_damage && prob(brute_dam + brute * (1+blunt)) )
+	if(brute_dam + brute > min_broken_damage && prob(brute_dam + brute * (blunt ? blunt_fracture_multiplier : 1)))
 		fracture()
 
 	// High brute damage or sharp objects may damage internal organs
