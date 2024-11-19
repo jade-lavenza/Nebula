@@ -164,7 +164,7 @@
 		examine_effect.examined(src, user, distance, item_effects[examine_effect])
 
 // RANGED effects
-/obj/item/afterattack(turf/floor/target, mob/user, proximity)
+/obj/item/afterattack(atom/target, mob/user, proximity)
 	if((. = ..()) || proximity)
 		return
 	var/list/item_effects = get_item_effects(ITEM_EFFECT_RANGED)

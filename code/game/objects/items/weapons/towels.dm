@@ -46,19 +46,38 @@
 /obj/item/towel/use_on_mob(mob/living/target, mob/living/user, animate = TRUE)
 	if(user.a_intent == I_HURT)
 		return ..()
+	return dry_thing(target, user)
+
+/obj/item/towel/afterattack(atom/target, mob/user, proximity)
+	if((. = ..()) || !proximity)
+		return
+	return dry_thing(target, user)
+
+/obj/item/towel/proc/dry_thing(atom/target, mob/living/user)
 	user.setClickCooldown(DEFAULT_ATTACK_COOLDOWN)
 	var/reagent_space = reagents.maximum_volume - reagents.total_volume
 	if(reagent_space <= 0)
 		to_chat(user, SPAN_WARNING("\The [src] is too saturated to dry [user == target ? "yourself" : "\the [target]"] off effectively."))
+		return TRUE
+	var/decl/pronouns/pronouns = target.get_pronouns()
+	var/datum/reagents/touching_reagents
+	if(isitem(target))
+		var/obj/item/target_item = target
+		touching_reagents = target_item.coating
+	if(isliving(target))
+		var/mob/living/living_target = target
+		touching_reagents = living_target.get_contact_reagents()
+	if(isturf(target))
+		var/turf/target_turf = target
+		if(target_turf.get_fluid_depth() > FLUID_PUDDLE)
+			to_chat(user, SPAN_WARNING("\The [target_turf] has too much [target_turf.get_fluid_name()] to dry it off with a towel!"))
+		touching_reagents = target_turf.reagents
+	if(!touching_reagents?.total_volume)
+		to_chat(user, SPAN_WARNING("[user == target ? "You are" : "\The [target] [pronouns.is]"] already dry."))
 	else
-		var/decl/pronouns/pronouns = target.get_pronouns()
-		var/datum/reagents/touching_reagents = target.get_contact_reagents()
-		if(!touching_reagents?.total_volume)
-			to_chat(user, SPAN_WARNING("[user == target ? "You are" : "\The [target] [pronouns.is]"] already dry."))
-		else
-			user.visible_message(SPAN_NOTICE("\The [user] uses \the [src] to towel [user == target ? pronouns.self : "\the [target]"] dry."))
-			touching_reagents.trans_to(src, min(touching_reagents.total_volume, reagent_space))
-			playsound(user, 'sound/weapons/towelwipe.ogg', 25, 1)
+		user.visible_message(SPAN_NOTICE("\The [user] uses \the [src] to towel [user == target ? pronouns.self : "\the [target]"] dry."))
+		touching_reagents.trans_to(src, min(touching_reagents.total_volume, reagent_space))
+		playsound(user, 'sound/weapons/towelwipe.ogg', 25, 1)
 	return TRUE
 
 /obj/item/towel/attack_self(mob/user)
@@ -67,6 +86,12 @@
 		return TRUE
 	if(user.a_intent != I_HURT)
 		return use_on_mob(user, user)
+	// if the towel is full and you're on harm intent, wring it out
+	if(reagents && !REAGENTS_FREE_SPACE(reagents) && reagents.total_liquid_volume)
+		user.visible_message(SPAN_NOTICE("\The [user] wrings out \the [src]."), SPAN_NOTICE("You wring out \the [src]."), SPAN_NOTICE("You hear liquid dripping."))
+		// Transfer 50-80% of the reagents to the turf.
+		reagents.trans_to_turf(get_turf(user), reagents.total_liquid_volume * rand(50, 80) / 100, transferred_phases = MAT_PHASE_LIQUID)
+		return TRUE
 	return ..()
 
 /obj/item/towel/random/Initialize()
