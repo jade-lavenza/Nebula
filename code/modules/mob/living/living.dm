@@ -1399,7 +1399,7 @@ default behaviour is:
 	var/datum/reagents/touching_reagents = get_contact_reagents()
 	if(touching_reagents)
 		var/remove_amount = touching_reagents.maximum_volume * reagent_permeability() //take off your suit first
-		touching_reagents.remove_any(remove_amount)
+		touching_reagents.remove_any(remove_amount, skip_reagents = list(/decl/material/liquid/water))
 
 	var/obj/item/mask = get_equipped_item(slot_wear_mask_str)
 	if(mask)

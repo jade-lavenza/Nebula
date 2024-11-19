@@ -1019,7 +1019,8 @@ modules/mob/living/human/life.dm if you die, you will be zoomed out.
 
 /obj/item/clean(clean_forensics=TRUE)
 	. = ..()
-	QDEL_NULL(coating)
+	if(coating)
+		coating.remove_any(coating.total_volume, skip_reagents = list(/decl/material/liquid/water))
 	blood_overlay = null
 	if(clean_forensics)
 		var/datum/extension/forensic_evidence/forensics = get_extension(src, /datum/extension/forensic_evidence)
