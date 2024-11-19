@@ -114,6 +114,8 @@
 	var/list/permitted_species
 	/// What species cannot select this trait in chargen?
 	var/list/blocked_species
+	/// Whether robotic status is permitted, forbidden, or required.
+	var/allow_robotic = TRAIT_ROBOTIC_ALLOWED
 
 /decl/trait/Initialize()
 	if(available_at_chargen)
@@ -194,6 +196,9 @@
 		return FALSE
 	if(permitted_species && !(pref.species in permitted_species))
 		return FALSE
+	if(allow_robotic != TRAIT_ROBOTIC_ALLOWED)
+		if((allow_robotic == TRAIT_ROBOTIC_REQUIRED) != (pref.get_bodytype_decl()?.is_robotic))
+			return FALSE
 	return TRUE
 
 /decl/trait/proc/apply_trait(mob/living/holder)

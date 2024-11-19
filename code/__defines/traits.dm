@@ -3,6 +3,10 @@
 #define TRAIT_LEVEL_MODERATE 2
 #define TRAIT_LEVEL_MAJOR    3
 
+#define TRAIT_ROBOTIC_REQUIRED -1
+#define TRAIT_ROBOTIC_FORBIDDEN 0
+#define TRAIT_ROBOTIC_ALLOWED   1
+
 #define DEFINE_ROBOLIMB_MODEL_TRAITS(MODEL_PATH, MODEL_ID, COST, MODEL_STRING) \
 /decl/trait/prosthetic_limb/left_hand/##MODEL_ID {       \
 	model = MODEL_PATH;                                  \
