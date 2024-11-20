@@ -163,6 +163,9 @@
 /obj/structure/table/woodentable/ebony,
 /turf/floor/path/running_bond/granite,
 /area/karzerfeste/outside/keep/tower)
+"iM" = (
+/turf/floor/path/basalt,
+/area/karzerfeste/outside/ward)
 "iS" = (
 /obj/structure/drying_rack/ebony,
 /turf/floor/path/running_bond/granite,
@@ -656,11 +659,14 @@
 	},
 /turf/floor/path/running_bond/granite,
 /area/karzerfeste/outside/ward/wall/two)
+"IV" = (
+/turf/floor/path/basalt,
+/area/karzerfeste/outside/road)
 "IY" = (
 /obj/structure/railing/mapped/wooden/ebony,
 /obj/structure/bed/chair/wood/ebony,
 /turf/floor/wood/maple,
-/area/karzerfeste/outside/keep/above)
+/area/karzerfeste/outside/ward)
 "Jm" = (
 /turf/floor/path/running_bond/granite,
 /area/karzerfeste/outside/keep/tower/two)
@@ -787,7 +793,7 @@
 /obj/structure/railing/mapped/wooden/ebony,
 /obj/structure/table/woodentable/ebony,
 /turf/floor/wood/maple,
-/area/karzerfeste/outside/keep/above)
+/area/karzerfeste/outside/ward)
 "RA" = (
 /obj/structure/railing/mapped/wooden/ebony{
 	dir = 1
@@ -894,6 +900,9 @@
 "VY" = (
 /turf/open,
 /area/karzerfeste/outside/keep/tower)
+"Ws" = (
+/turf/floor/wood/maple,
+/area/karzerfeste/outside/ward)
 "Wx" = (
 /obj/structure/rack/ebony,
 /obj/random/jewelry,
@@ -5764,7 +5773,7 @@ mL
 dj
 vT
 pY
-wh
+IV
 pY
 pY
 pY
@@ -6066,8 +6075,8 @@ mL
 mL
 vT
 wh
-bA
-bA
+fh
+fh
 pY
 pY
 pY
@@ -6217,8 +6226,8 @@ dj
 dj
 vT
 vT
-bA
-bA
+fh
+fh
 wh
 wh
 pY
@@ -6369,11 +6378,11 @@ bA
 vT
 vT
 wh
-bA
-bA
+fh
+fh
 wh
-bA
-bA
+fh
+fh
 pY
 pY
 pY
@@ -6520,17 +6529,17 @@ bA
 bA
 bA
 wh
-bA
-bA
-bA
-bA
-bA
-bA
-bA
+fh
+fh
+fh
+fh
+fh
+fh
+fh
 pY
 pY
-wh
-wh
+IV
+IV
 pY
 pY
 pY
@@ -6672,17 +6681,17 @@ bA
 bA
 bA
 bA
-bA
-bA
-bA
-bA
-bA
-bA
-bA
-bA
+fh
+fh
+fh
+fh
+fh
+fh
+fh
+fh
 pY
 pY
-wh
+IV
 pY
 pY
 pY
@@ -6825,17 +6834,17 @@ bA
 bA
 bA
 bA
-bA
-bA
+fh
+fh
 wh
-bA
-bA
-bA
+fh
+fh
+fh
 wh
 wh
 pY
 pY
-wh
+IV
 pY
 pY
 pY
@@ -6980,14 +6989,14 @@ bA
 bA
 wh
 wh
-bA
-bA
-bA
+fh
+fh
+fh
 wh
-bA
-bA
-wh
-wh
+fh
+fh
+IV
+IV
 pY
 pY
 pY
@@ -7131,9 +7140,9 @@ bA
 bA
 bA
 bA
-bA
+fh
 wh
-bA
+fh
 wh
 wh
 vT
@@ -7283,7 +7292,7 @@ bA
 bA
 bA
 bA
-wh
+iM
 vT
 vT
 wh
@@ -7435,7 +7444,7 @@ bA
 bA
 bA
 bA
-wh
+iM
 bA
 vT
 vT
@@ -9879,7 +9888,7 @@ bA
 yM
 vJ
 vJ
-bA
+HS
 pY
 pY
 pY
@@ -10029,8 +10038,8 @@ bA
 bA
 bA
 vJ
-bA
-bA
+HS
+HS
 vJ
 pY
 pY
@@ -10180,10 +10189,10 @@ bA
 bA
 bA
 bA
-bA
-bA
-bA
-bA
+HS
+HS
+HS
+HS
 pY
 pY
 pY
@@ -10332,10 +10341,10 @@ bA
 bA
 bA
 bA
-bA
-bA
-bA
-bA
+HS
+HS
+HS
+HS
 pY
 pY
 pY
@@ -10484,10 +10493,10 @@ bA
 bA
 bA
 bA
-bA
-bA
-bA
-bA
+HS
+HS
+HS
+HS
 pY
 pY
 pY
@@ -10637,9 +10646,9 @@ bA
 bA
 bA
 vJ
-bA
-bA
-bA
+HS
+HS
+HS
 pY
 pY
 pY
@@ -10788,10 +10797,10 @@ bA
 bA
 bA
 bA
-bA
-bA
-bA
-bA
+HS
+HS
+HS
+HS
 pY
 pY
 pY
@@ -10941,9 +10950,9 @@ bA
 bA
 bA
 vJ
-bA
+HS
 vJ
-bA
+HS
 pY
 pY
 pY
@@ -11094,7 +11103,7 @@ bA
 bA
 vJ
 vJ
-bA
+HS
 vJ
 pY
 pY
@@ -11247,7 +11256,7 @@ bA
 yM
 vJ
 vJ
-bA
+HS
 pY
 pY
 pY
@@ -12719,8 +12728,8 @@ MU
 HN
 HN
 MU
-sw
-sw
+Ws
+Ws
 IY
 bA
 bA
@@ -12871,8 +12880,8 @@ MU
 GZ
 GZ
 MU
-sw
-sw
+Ws
+Ws
 Rz
 bA
 bA
@@ -13023,8 +13032,8 @@ MU
 HN
 HN
 MU
-sw
-sw
+Ws
+Ws
 IY
 bA
 bA

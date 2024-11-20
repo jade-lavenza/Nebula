@@ -2095,7 +2095,7 @@
 /area/karzerfeste/ward/wall/two)
 "Qd" = (
 /turf/floor/path/basalt,
-/area/karzerfeste/ward/wall)
+/area/karzerfeste/outside/road)
 "Qk" = (
 /obj/structure/door/ebony{
 	dir = 1
@@ -2460,6 +2460,9 @@
 /obj/structure/table/woodentable/ebony,
 /turf/floor/carpet/blue,
 /area/karzerfeste/keep)
+"Ze" = (
+/turf/wall/brick/basalt,
+/area/karzerfeste/outside/road)
 "Zi" = (
 /mob/living/simple_animal/passive/sheep,
 /turf/floor/mud,
@@ -7629,8 +7632,8 @@ rM
 LQ
 Zz
 Zz
-rM
-rM
+Qd
+Qd
 Rn
 Zz
 Zz
@@ -7780,9 +7783,9 @@ rM
 JK
 JK
 Zz
-rM
+Qd
 Zz
-rM
+Qd
 Rn
 Rn
 Zz
@@ -7922,7 +7925,7 @@ rP
 rP
 Xt
 Xt
-Qd
+WP
 dd
 JK
 JK
@@ -7931,7 +7934,7 @@ rM
 rM
 JK
 Zz
-rM
+Qd
 Zz
 rM
 Zz
@@ -8074,8 +8077,8 @@ rP
 rP
 rP
 rP
-iJ
-iJ
+zS
+zS
 rM
 JK
 QR
@@ -8238,7 +8241,7 @@ rM
 rM
 LQ
 Zz
-rM
+Qd
 rM
 JK
 Zz
@@ -8393,7 +8396,7 @@ JK
 JK
 rM
 Zz
-JK
+Ze
 YB
 Zz
 Zz
@@ -8544,8 +8547,8 @@ rM
 JK
 rM
 Zz
-JK
-JK
+Ze
+Ze
 YB
 YB
 Zz
@@ -11439,7 +11442,7 @@ JK
 JK
 rM
 rM
-zS
+JK
 YB
 Rn
 Zz
@@ -11588,7 +11591,7 @@ Xt
 JK
 JK
 rM
-Zz
+QR
 JK
 rM
 Zz
@@ -11741,7 +11744,7 @@ dd
 LQ
 rM
 LQ
-Zz
+QR
 JK
 LQ
 Zz
@@ -12042,7 +12045,7 @@ EJ
 EJ
 rP
 dd
-Zz
+QR
 rM
 rM
 rM
@@ -12197,7 +12200,7 @@ dd
 pJ
 QY
 Zo
-Zz
+XA
 Zo
 Zz
 Zz
@@ -12349,7 +12352,7 @@ pJ
 Zo
 QY
 Zo
-Zz
+XA
 Zo
 Zo
 Zz
@@ -12499,7 +12502,7 @@ Xt
 dd
 pJ
 pJ
-Zz
+XA
 pJ
 QY
 QY
