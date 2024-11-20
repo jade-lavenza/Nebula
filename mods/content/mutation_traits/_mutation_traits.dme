@@ -1,0 +1,9 @@
+#ifndef CONTENT_PACK_MUTATION_TRAITS
+#define CONTENT_PACK_MUTATION_TRAITS
+// BEGIN_INCLUDE
+#include "mutation_traits.dm"
+#include "mutations/amphibious.dm"
+#include "mutations/brittle_bones.dm"
+#include "mutations/cold_blooded.dm"
+// END_INCLUDE
+#endif
