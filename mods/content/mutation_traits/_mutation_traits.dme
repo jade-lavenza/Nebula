@@ -5,5 +5,6 @@
 #include "mutations/amphibious.dm"
 #include "mutations/brittle_bones.dm"
 #include "mutations/cold_blooded.dm"
+#include "mutations/nerve_poppy.dm"
 // END_INCLUDE
 #endif
