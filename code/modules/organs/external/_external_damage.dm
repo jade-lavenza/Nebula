@@ -257,6 +257,12 @@
 		tox_dam += I.getToxLoss()
 	return pain + lasting_pain + 0.7 * brute_dam + 0.8 * burn_dam + 0.3 * tox_dam + 0.5 * get_genetic_damage()
 
+/// A parallel proc to get_pain used mostly for traits or other special conditions.
+/// This is used for mostly things displayed to the user, like HUD elements or status strings.
+/// By default, returns get_pain(), but will not be recursively called if an override calls something else that uses organ.get_pain().
+/obj/item/organ/external/proc/get_sensed_pain()
+	return get_pain()
+
 /obj/item/organ/external/proc/remove_pain(var/amount)
 	if(!can_feel_pain())
 		pain = 0
