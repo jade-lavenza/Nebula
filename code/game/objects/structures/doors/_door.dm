@@ -229,71 +229,49 @@
 		)
 	return TRUE
 
+#define MATERIAL_DOOR_SUBTYPE(PATH, MATERIAL)\
+/obj/structure/door/##PATH{\
+	material = MATERIAL;\
+	color = MATERIAL::color;\
+	icon_state = MATERIAL::door_icon_base;\
+}\
+/obj/structure/door/##PATH
+
 // Subtypes below.
-/obj/structure/door/iron
-	material = /decl/material/solid/metal/iron
+MATERIAL_DOOR_SUBTYPE(iron, /decl/material/solid/metal/iron)
 
-/obj/structure/door/silver
-	material = /decl/material/solid/metal/silver
+MATERIAL_DOOR_SUBTYPE(silver, /decl/material/solid/metal/silver)
 
-/obj/structure/door/gold
-	material = /decl/material/solid/metal/gold
+MATERIAL_DOOR_SUBTYPE(gold, /decl/material/solid/metal/gold)
 
-/obj/structure/door/uranium
-	material = /decl/material/solid/metal/uranium
+MATERIAL_DOOR_SUBTYPE(uranium, /decl/material/solid/metal/uranium)
 
-/obj/structure/door/sandstone
-	material = /decl/material/solid/stone/sandstone
-	color = /decl/material/solid/stone/sandstone::color
+MATERIAL_DOOR_SUBTYPE(sandstone, /decl/material/solid/stone/sandstone)
 
-/obj/structure/door/basalt
+MATERIAL_DOOR_SUBTYPE(basalt, /decl/material/solid/stone/basalt)
 	desc = "A door hewn of raw basalt, unthinkably heavy and smooth to the touch."
-	material = /decl/material/solid/stone/basalt
-	color = /decl/material/solid/stone/basalt::color
 
-/obj/structure/door/diamond
-	material = /decl/material/solid/gemstone/diamond
+MATERIAL_DOOR_SUBTYPE(diamond, /decl/material/solid/gemstone/diamond)
 
-/obj/structure/door/wood
-	material = /decl/material/solid/organic/wood
-	color = /decl/material/solid/organic/wood::color
+MATERIAL_DOOR_SUBTYPE(wood, /decl/material/solid/organic/wood)
 
-/obj/structure/door/mahogany
-	material = /decl/material/solid/organic/wood/mahogany
-	color = /decl/material/solid/organic/wood/mahogany::color
+MATERIAL_DOOR_SUBTYPE(mahogany, /decl/material/solid/organic/wood/mahogany)
 
-/obj/structure/door/maple
-	material = /decl/material/solid/organic/wood/maple
-	color = /decl/material/solid/organic/wood/maple::color
+MATERIAL_DOOR_SUBTYPE(maple, /decl/material/solid/organic/wood/maple)
 
-/obj/structure/door/ebony
-	material = /decl/material/solid/organic/wood/ebony
-	color = /decl/material/solid/organic/wood/ebony::color
+MATERIAL_DOOR_SUBTYPE(ebony, /decl/material/solid/organic/wood/ebony)
 
-/obj/structure/door/walnut
-	material = /decl/material/solid/organic/wood/walnut
-	color = /decl/material/solid/organic/wood/walnut::color
+MATERIAL_DOOR_SUBTYPE(walnut, /decl/material/solid/organic/wood/walnut)
 
 /obj/structure/door/wood/saloon
-	material = /decl/material/solid/organic/wood
 	opacity = FALSE
 
-/obj/structure/door/wood/saloon/ebony
-	material = /decl/material/solid/organic/wood/ebony
-	color = /decl/material/solid/organic/wood/ebony::color
+MATERIAL_DOOR_SUBTYPE(wood/saloon/ebony, /decl/material/solid/organic/wood/ebony)
+MATERIAL_DOOR_SUBTYPE(wood/saloon/walnut, /decl/material/solid/organic/wood/walnut)
 
-/obj/structure/door/wood/saloon/walnut
-	material = /decl/material/solid/organic/wood/walnut
-	color = /decl/material/solid/organic/wood/walnut::color
-
-/obj/structure/door/glass
-	material = /decl/material/solid/glass
-
-/obj/structure/door/plastic
-	material = /decl/material/solid/organic/plastic
-
-/obj/structure/door/exotic_matter
-	material = /decl/material/solid/exotic_matter
+MATERIAL_DOOR_SUBTYPE(glass, /decl/material/solid/glass)
+MATERIAL_DOOR_SUBTYPE(plastic, /decl/material/solid/organic/plastic)
+MATERIAL_DOOR_SUBTYPE(exotic_matter, /decl/material/solid/exotic_matter)
 
 /obj/structure/door/shuttle
 	material = /decl/material/solid/metal/steel
