@@ -461,7 +461,6 @@
 /turf/floor/path/running_bond/granite,
 /area/karzerfeste/outside/ward/wall/three)
 "zz" = (
-/obj/structure/table/woodentable_reinforced/ebony,
 /obj/item/paper/scroll,
 /obj/item/paper/scroll,
 /obj/item/paper/scroll,
@@ -475,6 +474,7 @@
 /obj/item/cash/imperial/crown,
 /obj/item/cash/imperial/crown,
 /obj/item/cash/imperial/crown,
+/obj/structure/table/desk/ebony,
 /turf/floor/wood/maple,
 /area/karzerfeste/outside/keep/tower/three)
 "zG" = (
@@ -534,8 +534,7 @@
 /turf/floor/path/running_bond/granite,
 /area/karzerfeste/outside/ward/wall)
 "BI" = (
-/obj/structure/table/woodentable_reinforced/ebony,
-/obj/item/pen/fancy/quill,
+/obj/item/chems/glass/inkwell/quilled,
 /turf/floor/wood/maple,
 /area/karzerfeste/outside/keep/tower/three)
 "BJ" = (
@@ -649,7 +648,7 @@
 /turf/wall/brick/basalt,
 /area/karzerfeste/caves/upper_east)
 "Iv" = (
-/obj/structure/table/woodentable/ebony,
+/obj/structure/table/end/alt/ebony,
 /obj/item/flame/candle/handmade,
 /turf/floor/wood/maple,
 /area/karzerfeste/outside/keep/tower/three)
@@ -8622,7 +8621,7 @@ bA
 PL
 PL
 zz
-Iv
+EL
 EL
 yX
 PL
@@ -8776,7 +8775,7 @@ PL
 BI
 VC
 EL
-EL
+Iv
 PL
 PL
 PL
