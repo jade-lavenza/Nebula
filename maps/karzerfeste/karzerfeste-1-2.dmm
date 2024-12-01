@@ -1,6 +1,6 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "ai" = (
-/obj/structure/table/woodentable/ebony,
+/obj/structure/table/end,
 /turf/floor/path/running_bond/granite,
 /area/karzerfeste/outside/keep/above)
 "aA" = (
@@ -55,7 +55,7 @@
 /obj/structure/railing/mapped/wooden/ebony{
 	dir = 4
 	},
-/obj/structure/table/woodentable/ebony,
+/obj/structure/table/end,
 /turf/floor/wood/maple,
 /area/karzerfeste/outside/keep/above)
 "cK" = (
@@ -153,7 +153,7 @@
 /turf/floor/path/running_bond/granite,
 /area/karzerfeste/outside/ward/wall/four)
 "hU" = (
-/obj/structure/table/woodentable/ebony,
+/obj/structure/table/end,
 /turf/floor/wood/maple,
 /area/karzerfeste/outside/keep/tower)
 "hV" = (
@@ -218,15 +218,15 @@
 /turf/floor/path/running_bond/granite,
 /area/karzerfeste/outside/ward/wall)
 "kS" = (
-/obj/structure/table/woodentable/ebony,
 /obj/item/flame/candle/handmade,
+/obj/structure/table/end,
 /turf/floor/wood/maple,
 /area/karzerfeste/outside/keep/tower)
 "lc" = (
-/obj/structure/table/woodentable/ebony,
 /obj/structure/railing/mapped/wooden/ebony{
 	dir = 8
 	},
+/obj/structure/table/end,
 /turf/floor/wood/maple,
 /area/karzerfeste/outside/keep/above)
 "lC" = (
@@ -284,6 +284,10 @@
 	},
 /turf/floor/wood/maple,
 /area/karzerfeste/outside/keep/above)
+"pA" = (
+/obj/structure/table/end,
+/turf/floor/path/running_bond/granite,
+/area/karzerfeste/outside/keep/tower)
 "pF" = (
 /obj/structure/railing/mapped/wooden/ebony{
 	dir = 1
@@ -496,7 +500,7 @@
 /obj/structure/railing/mapped/wooden/ebony{
 	dir = 1
 	},
-/obj/structure/table/woodentable/ebony,
+/obj/structure/table/end,
 /turf/floor/path/running_bond/granite,
 /area/karzerfeste/outside/keep/gatehouse)
 "Aq" = (
@@ -674,7 +678,7 @@
 /turf/floor/path/running_bond/granite,
 /area/karzerfeste/outside/ward/wall/two)
 "JY" = (
-/obj/structure/table/woodentable/ebony,
+/obj/structure/table/end,
 /turf/floor/path/running_bond/granite,
 /area/karzerfeste/outside/keep/gatehouse)
 "KA" = (
@@ -702,9 +706,9 @@
 /turf/floor/wood/maple,
 /area/karzerfeste/outside/keep/tower)
 "Md" = (
-/obj/structure/table/woodentable/ebony,
 /obj/item/chems/glass/mortar,
 /obj/item/rock/basalt,
+/obj/structure/table/end,
 /turf/floor/path/running_bond/granite,
 /area/karzerfeste/outside/keep/tower)
 "MA" = (
@@ -790,7 +794,7 @@
 /area/karzerfeste/outside/keep/tower/four)
 "Rz" = (
 /obj/structure/railing/mapped/wooden/ebony,
-/obj/structure/table/woodentable/ebony,
+/obj/structure/table/end,
 /turf/floor/wood/maple,
 /area/karzerfeste/outside/ward)
 "RA" = (
@@ -9643,7 +9647,7 @@ ub
 dg
 dg
 dg
-iF
+pA
 sJ
 sJ
 sJ
