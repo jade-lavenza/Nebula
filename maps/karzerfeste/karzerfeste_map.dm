@@ -8,9 +8,7 @@
 /datum/map/karzerfeste/finalize_map_generation()
 	. = ..()
 	var/static/list/banned_weather = list(
-		/decl/state/weather/snow/medium,
-		/decl/state/weather/snow/heavy,
-		/decl/state/weather/snow
+		// none
 	)
 	var/datum/level_data/region = SSmapping.levels_by_id["karzerfeste_region"]
 	if(istype(region)) // if this is false, something has badly exploded
